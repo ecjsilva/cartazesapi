@@ -8,7 +8,7 @@ import locale
 app = Flask(__name__)
 
 
-@app.route('/index', methods=['GET'])
+@app.route('/index', methods=['POST'])
 def cartazesAuto():
     # Configurar o locale para usar o formato de moeda brasileira
     locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
