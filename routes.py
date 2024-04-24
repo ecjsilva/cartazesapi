@@ -44,7 +44,8 @@ def cartazesAuto():
 
         # Definir as coordenadas para o texto
         # DESCRIÇÃO
-        bboxDescricao = draw.textbbox((0, 0), str(item['descricao']), font=fontDescricao)
+        bboxDescricao = draw.textbbox((0, 0), str(
+            item['descricao']), font=fontDescricao)
         largura_texto = bboxDescricao[2] - bboxDescricao[0]
         altura_texto = bboxDescricao[3] - bboxDescricao[1]
         x_centro = (largura - largura_texto) // 2
@@ -52,7 +53,8 @@ def cartazesAuto():
         descricaoXY = (x_centro, y_centro - 100)
 
         # INFO
-        bboxinfo = draw.textbbox((0, 0), str(item['informacao']), font=fontInfo)
+        bboxinfo = draw.textbbox((0, 0), str(
+            item['informacao']), font=fontInfo)
         largura_info = bboxinfo[2] - bboxinfo[0]
         altura_info = bboxinfo[3] - bboxinfo[1]
         x_centro_info = (largura - largura_info) // 2
@@ -68,7 +70,8 @@ def cartazesAuto():
         marcaXY = (x_centro_marca, y_centro_marca - 230)
 
         # CODPROD
-        bboxcodprod = draw.textbbox((0, 0), "COD "+str(item['codprod']), font=fontCodprod)
+        bboxcodprod = draw.textbbox(
+            (0, 0), "COD "+str(item['codprod']), font=fontCodprod)
         largura_codprod = bboxcodprod[2] - bboxcodprod[0]
         altura_codprod = bboxcodprod[3] - bboxcodprod[1]
         x_centro_codprod = (largura - largura_codprod) // 2
@@ -84,25 +87,32 @@ def cartazesAuto():
         if not isinstance(item, dict):
             raise ValueError("Item deve ser um dicionário")
 
-        keys = ['descricao', 'informacao', 'marca', 'codprod', 'oldprice', 'newprice', 'embalagem']
+        keys = ['descricao', 'informacao', 'marca',
+                'codprod', 'oldprice', 'newprice', 'embalagem']
         for key in keys:
             if key not in item:
-                raise ValueError(f"A chave '{key}' não foi encontrada em 'item'")
-        
-        # Converter os preços para moeda brasileira
-        old_price_str = locale.currency(item['oldprice'], grouping=True, symbol=None).replace('R$', '').strip()
-        new_price_str = locale.currency(item['newprice'], grouping=True, symbol=None).replace('R$', '').strip()
+                raise ValueError(
+                    f"A chave '{key}' não foi encontrada em 'item'")
 
+        # Converter os preços para moeda brasileira
+        old_price_str = locale.currency(
+            item['oldprice'], grouping=True, symbol=None).replace('R$', '').strip()
+        new_price_str = locale.currency(
+            item['newprice'], grouping=True, symbol=None).replace('R$', '').strip()
 
         # Converter os valores para string se necessário e desenhar o texto na imagem
-        draw.text(descricaoXY, str(item['descricao']),fill='black', font=fontDescricao)
-        draw.text(infoXY, str(item['informacao']),fill='black', font=fontInfo)
-        draw.text(marcaXY, str(item['marca']),fill='black', font=fontmarca)
-        draw.text(codprodXY, "COD "+str(item['codprod']),fill='black', font=fontCodprod)
-        draw.text(embalagemXY, str(item['embalagem']),fill='black', font=fontembalagem)
-        draw.text(promoXY, "DE: R$"+old_price_str,fill='black', font=fontpromo)
-        draw.text(precoXY, "R$"+new_price_str,fill='red', font=fontPreco)
-        draw.text(apartiXY, "APARTIR DE:",fill='black', font=fontembalagem)
+        draw.text(descricaoXY, str(
+            item['descricao']), fill='black', font=fontDescricao)
+        draw.text(infoXY, str(item['informacao']), fill='black', font=fontInfo)
+        draw.text(marcaXY, str(item['marca']), fill='black', font=fontmarca)
+        draw.text(codprodXY, "COD " +
+                  str(item['codprod']), fill='black', font=fontCodprod)
+        draw.text(embalagemXY, str(
+            item['embalagem']), fill='black', font=fontembalagem)
+        draw.text(promoXY, "DE: R$"+old_price_str,
+                  fill='black', font=fontpromo)
+        draw.text(precoXY, "R$"+new_price_str, fill='red', font=fontPreco)
+        draw.text(apartiXY, "APARTIR DE:", fill='black', font=fontembalagem)
 
         # Definir o caminho completo do arquivo
         img_filename = f"item_{item['codprod']}.png"
@@ -123,4 +133,4 @@ def cartazesAuto():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port='5000')
